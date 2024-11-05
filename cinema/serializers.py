@@ -66,8 +66,24 @@ class MovieSerializer(serializers.Serializer):
                                                 queryset=Genre.objects.all())
     duration = serializers.IntegerField()
 
+    class Meta:
+        model = Movie
+        fields = ["id",
+                  "title",
+                  "description",
+                  "duration",
+                  "actors",
+                  "genres"]
+
     def create(self, validated_data):
-        return Movie.objects.create(**validated_data)
+        actors_data = validated_data.pop("actors")
+        genres_data = validated_data.pop("genres")
+        movie = Movie.objects.create(**validated_data)
+
+        movie.actors.set(actors_data)
+        movie.genres.set(genres_data)
+
+        return movie
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title", instance.title)

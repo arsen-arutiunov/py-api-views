@@ -95,19 +95,19 @@ class ActorDetail(
 
 
 class CinemaHallList(
-    viewsets.GenericViewSet,
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
+    viewsets.GenericViewSet,
 ):
     queryset = CinemaHall.objects.all()
     serializer_class = CinemaHallSerializer
 
 
 class CinemaHallDetail(
-    viewsets.GenericViewSet,
     mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
 ):
     queryset = CinemaHall.objects.all()
     serializer_class = CinemaHallSerializer
